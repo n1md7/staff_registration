@@ -4,6 +4,10 @@
     <h3 class="panel-title">ავანსი</h3>
   </div>
   <div class="panel-body">
+    <form name="searchDeptPerson" method="POST">
+      <input type="search" minlength="2" maxlength="20" title="ძებნა, ჩაწერე მინიმუმ 2 სიმბოლო" placeholder="ჩაწერე სახელი ან გვარი და დააჭირე &crarr; შესვლას" name="searchvalue" class="form-control" style="border: 1px solid #337ab7;">
+    </form> 
+      <hr> 
     <?php if(sizeof($viewmodel[0])>0):?>
          <table class="table table-hover table-bordered text-center">
             <thead>

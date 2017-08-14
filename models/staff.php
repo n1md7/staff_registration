@@ -475,17 +475,31 @@ class StaffModel extends Model{
 		$get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 		 
-		 
-		$this->query('SELECT COUNT(*) days, staff.firstName, staff.lastName,staff.id, 
-					staff.fathersName, staff.jobPost, registration.isnot_absent, 
-					registration.date_time, registration.comment
-						FROM staff
-							INNER JOIN registration
-						ON staff.id = registration.user_id  
-					WHERE staff.active = 1 
-					AND registration.isnot_absent = 1
-					GROUP BY staff.id
-					ORDER BY firstName DESC');
+		if(isset($post['searchvalue'])){
+			$this->query('SELECT COUNT(*) days, staff.firstName, staff.lastName,staff.id, 
+						staff.fathersName, staff.jobPost, registration.isnot_absent, 
+						registration.date_time, registration.comment
+							FROM staff
+								INNER JOIN registration
+							ON staff.id = registration.user_id  
+						WHERE staff.active = 1 
+						AND registration.isnot_absent = 1 
+						AND (firstName = :name OR lastName = :name)
+						GROUP BY staff.id
+						ORDER BY firstName DESC');
+			$this->bind(":name", $post['searchvalue']);
+		}else{
+			$this->query('SELECT COUNT(*) days, staff.firstName, staff.lastName,staff.id, 
+						staff.fathersName, staff.jobPost, registration.isnot_absent, 
+						registration.date_time, registration.comment
+							FROM staff
+								INNER JOIN registration
+							ON staff.id = registration.user_id  
+						WHERE staff.active = 1 
+						AND registration.isnot_absent = 1
+						GROUP BY staff.id
+						ORDER BY firstName DESC');
+		}
 		$result0 =  $this->resultSet();
 
 		$this->query('SELECT * FROM job_cat ORDER BY name DESC');
