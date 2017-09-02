@@ -103,6 +103,19 @@ class Staff extends Controller{
 		$viewmodel = new StaffModel();
 		$this->returnView($viewmodel->bonus(), true);
 	}
+
+	protected function detailed(){
+		if(!isset($_SESSION["is_logged_in"])){
+			header('Location: '.ROOT_URL);
+			return;
+		}
+		if($_SESSION['is_admin'] == false){
+			header("Location:".ROOT_URL);
+			return;
+		}
+		$viewmodel = new StaffModel();
+		$this->returnView($viewmodel->detailed(), true);
+	}
 	
 
 	 

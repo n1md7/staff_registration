@@ -111,7 +111,7 @@ class StaffModel extends Model{
 			$this->query("SELECT * FROM staff WHERE firstName LIKE :s or lastName LIKE :s LIMIT 50");
 			$this->bind(":s", "%".$post['searchvalue']."%");
 			$rows0 = $this->resultSet();
-			return [$rows0, $rows1];
+			return [$rows0, $rows1, $post['searchvalue']];
 		}
 
 		if(!empty($get['id'])){
@@ -273,7 +273,10 @@ class StaffModel extends Model{
 
 				$this->query('SELECT id, name FROM job_cat');
 				$result2 = $this->resultSet();
-				return [$result0, $result1, $result2];
+				$this->query('SELECT date_time FROM registration ORDER BY id DESC');
+				$result3 = $this->single();
+
+				return [$result0, $result1, $result2, $result3];
 			else:
 				if(isset($post['register'])){
 					if(empty($post['csrf']) || ($post['csrf'] != $_SESSION['csrf'])){
@@ -302,8 +305,12 @@ class StaffModel extends Model{
 						$this->execute();
 					  }
 					endif;
-					Messages::setMsg('აღრიცხვა წარმატებით შესრულდა', '');
-					$_SESSION['regDone'] = true;
+					if($this->lastInsertId()):
+						Messages::setMsg('აღრიცხვა წარმატებით შესრულდა', '');
+					else:
+						Messages::setMsg('რაღაც მოხდა, აღრიცხვა ვერ შესრულდა', 'warn');
+					endif;
+					// $_SESSION['regDone'] = true;
 					$this->query('SELECT staff.firstName, staff.lastName,staff.id, 
 						staff.fathersName, registration.isnot_absent, 
 						registration.date_time, registration.comment, staff.jobPost
@@ -334,14 +341,20 @@ class StaffModel extends Model{
 
 					$this->query('SELECT id, name FROM job_cat');
 					$result2 = $this->resultSet();
-					return [$result0, $result1, $result2];
+					$this->query('SELECT date_time FROM registration ORDER BY id DESC');
+					$result3 = $this->single();
+
+					return [$result0, $result1, $result2, $result3];
 				}else{
 					$this->query('SELECT * FROM staff WHERE active = 1');
 					$result0 = $this->resultSet(); 
 					$result1 = ""; 
 					$this->query('SELECT id, name FROM job_cat');
-					$result2 = $this->resultSet();	
-					return [$result0, $result1, $result2];
+					$result2 = $this->resultSet();
+					$this->query('SELECT date_time FROM registration ORDER BY id DESC');
+					$result3 = $this->single();
+
+					return [$result0, $result1, $result2, $result3];
 				}
 			endif;
 
@@ -475,7 +488,7 @@ class StaffModel extends Model{
 		$get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 		 
-		if(isset($post['searchvalue'])){
+		if(isset($post['searchvalue']) && !empty($post['searchvalue'])){
 			$this->query('SELECT COUNT(*) days, staff.firstName, staff.lastName,staff.id, 
 						staff.fathersName, staff.jobPost, registration.isnot_absent, 
 						registration.date_time, registration.comment
@@ -520,6 +533,18 @@ class StaffModel extends Model{
 		$get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 		
+		if(isset($post['pay'])):
+			if(isset($post['value']) && isset($post['id'])):
+				if(!empty($post['value']) && !empty($post['id'])):
+					$this->query('UPDATE dept SET paid = 1 WHERE id = :id');
+					$this->bind(":id", $post['id']);
+					$this->execute();
+					Messages::setMsg('ვალი გადახდილია', '');
+				endif;
+			endif;
+		endif;
+
+
 		if(isset($post['addDept'])){
 			if(empty($post['csrf']) || ($post['csrf'] != $_SESSION['csrf'])){
 					header('Location: '.ROOT_URL.'staff/dept/');
@@ -540,7 +565,7 @@ class StaffModel extends Model{
 		$this->query('SELECT * FROM staff WHERE active = 1 ORDER BY firstName DESC');
 		$result0 = $this->resultSet();
 
-		$this->query('SELECT staff.firstName, staff.lastName, staff.id, dept.value, dept.comment, dept.paid
+		$this->query('SELECT staff.firstName, staff.lastName, dept.id, dept.user_id, dept.value, dept.comment, dept.paid
 		 	FROM staff 
 			INNER JOIN dept
 			ON staff.id = dept.user_id
@@ -593,6 +618,12 @@ class StaffModel extends Model{
 
 		return [$result0, $result1];
 		 
+	}
+
+	public function detailed(){
+		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		 
+		return $post['id'];
 	}
 
 

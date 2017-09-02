@@ -34,19 +34,54 @@
       </tr>
     </thead>
     <?php 
+
+/*     foreach ($viewmodel[2] as $oneArray): //პირველი ჩანაწერი
+                        $key = $oneArray[0]; $value = $oneArray[1]; $id = $oneArray[2];
+                        $keyVal = isset($_GET['lang'])&&$_GET['lang']=="meg"?"<b>".$key."</b> - ".$value:"<b>".$value."</b> - ".$key;
+                            echo "<parent onmouseout=\"parentTagIMgHideUnhide(this,'hidden');\" onmouseover=\"parentTagIMgHideUnhide(this,'visible');\">";
+                            for($i=0; $i<count($arrayExplodeFinal);$i++){
+                                echo  "<span class=\"fontSmall\">".$arrayExplodeFinal[$i]."</span>";
+                                if(count($arrayExplodeFinal)>$i+1)
+                                    echo "<em class=\"findWord\">".$getVar."</em>";
+                            } 
+                            echo "<img style=\"visibility:hidden;\" onclick=\"setEditFeatureToelements(this);\" value=\"".$id."\" class=\"edit\" src=\"http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/512/edit-icon.png\" width=\"10\">";
+                            echo "<hr class=\"separatorDataHr\">";
+                            echo "</parent>";
+                         
+     endforeach;
+*/
+
+
+
+
+
+
+
+
+
       $myCSRF = new CSRF;
       $returnToken = $myCSRF->getToken();
       $lastId = 0;
       $firstId = "";
       if(sizeof($viewmodel[0])>0):
         foreach($viewmodel[0] as $row):
+          // $fname = explode($row['firstName'], $viewmodel[2]);
+          // $lname = explode($row['lastName'], $viewmodel[2]);
+          // $flen = strlen($fname[0]);
+          // $llen = strlen($lname[0]);
+          // $ffname = str_replace($fname[0], "", $row['firstName']);
+          // $llname = str_replace($lname[0], "", $row['lastName']);
+          // $f = strlen($viewmodel[2]) != $flen ? '' : $fname[0];
+          // $l = strlen($viewmodel[2]) != $llen ? '' : $lname[0];
+          // $fname = '<u>'.$f. '</u>'.$ffname;
+          // $lname = '<u>'.$l. '</u>'.$llname;
          ?>
         <tbody>
           <tr class="<?php //echo $row['active'] == 1?'success':'danger'; ?>">
             <form method="post" action="<?php echo ROOT_URL.'staff/showOneStaff/'; ?>"  onsubmit="setFormSubmitting()">
               <div class="form-group">
-                <td style="vertical-align: middle;"><?php echo $row['firstName']; ?></td>
-                <td style="vertical-align: middle;"><?php echo $row['lastName']; ?></td>
+                <td style="vertical-align: middle;"><?php echo /*$fname;*/$row['firstName']; ?></td>
+                <td style="vertical-align: middle;"><?php echo /*$lname;*/$row['lastName']; ?></td>
                 <td style="vertical-align: middle;"><?php 
                   $ns = strval($row['phoneNumber']); 
                   $spi = [3, 2, 2, 2];

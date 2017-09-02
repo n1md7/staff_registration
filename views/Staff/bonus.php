@@ -1,4 +1,4 @@
-<script type="text/javascript">$("#dept").addClass("activeMenu");</script>
+<script type="text/javascript">$("#bonus").addClass("activeMenu");</script>
 <div class="panel panel-default" style="width: 700px;margin:auto;">
   <div class="panel-heading">
     <h3 class="panel-title text-center">ბონუს თანხის დამატება</h3>
@@ -28,10 +28,7 @@
             <label>აღწერა / კომენტარი</label>
             <input type="text" name="description" required="" placeholder="description"  class="form-control toKa" autocomplete="off">
         </div>
-        <?php 
-            $myCSRF = new CSRF;
-            $returnToken = $myCSRF->getToken();
-        ?>
+        <?php $myCSRF = (new CSRF)->getToken();?>
         <input class="btn btn-primary pull-right" name="addBonus" type="submit" value="დამატება">
     </form>
   </div>

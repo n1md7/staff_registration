@@ -1,5 +1,5 @@
 <script type="text/javascript">$("#category").addClass("activeMenu");</script>
-<div class="panel panel-default" style="width: 700px;margin:auto;">
+<div class="panel panel-default" style="width: 1000px;margin:auto;">
   <div class="panel-heading">
     <h3 class="panel-title">კომპანიაში არსებული თანამდებობების სია/კატეგორია</h3>
   </div>

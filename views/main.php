@@ -102,6 +102,61 @@
     window.location.href = "<?php echo ROOT_URL.'users/logout';?>";
   });
   }
+
+/*
+  creating Spinner before loading new page
+  image dimansions 200x200
+*/
+var loading = (function(doc, lists, imgDim){
+    lists !== undefined ? 
+      lists.forEach(function(element, index){
+        element.addEventListener('submit', function(){
+        
+          doc.body.style.overflow = 'hidden'
+        
+          var transparentDiv, style, appendStyle = ''
+          var transparentImg, styleImg, appendStyleImg = ''
+      
+          transparentDiv = doc.createElement('div')
+          transparentImg = doc.createElement('img')
+      
+          style = {
+            position : 'absolute',
+            width : '100%',
+            top : 0,
+            left : 0,
+            height : '100%',
+            'background-color' : 'rgba(0,0,0,0.4)',
+            'z-index' : 99999
+          }
+       
+          styleImg = {
+            position : 'absolute',
+            top : (window.innerHeight - imgDim[0]) / 2 + 'px',
+            left : (window.innerWidth - imgDim[1]) / 2 + 'px',
+            'z-index' : 999999
+          }
+      
+          for(s in style){
+            appendStyle += s + ':' + style[s] + ';'
+          }
+          for(s in styleImg){
+            appendStyleImg += s + ':' + styleImg[s] + ';'
+          }
+
+          transparentImg.src = '../assets/img/loading.gif'
+          
+          transparentDiv.setAttribute('style', appendStyle)
+          doc.body.appendChild(transparentDiv)
+          
+          transparentImg.setAttribute('style', appendStyleImg)
+          doc.body.appendChild(transparentImg)
+        })
+      })
+    : null
+  })(document, document.querySelectorAll('form'), [200, 200])
+
+
 </script>
 
 </body>

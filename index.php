@@ -12,6 +12,7 @@ require('classes/sescontrol.php');
 require('config.php');
 
 require('classes/csrf.php');
+require('classes/calendar.php');
 require('classes/generatesha1.php');
 
 require('classes/Messages.php');

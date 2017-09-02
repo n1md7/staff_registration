@@ -68,20 +68,25 @@
                                 ];
                         foreach($viewmodel[1] as $count => $value):
                             echo '<tr>';
-                            echo  '<td style="vertical-align: middle;" data-id="'.$row['id'].'">'.($count+1).'</td>';           
+                            echo '<form method="POST">';
+                            echo  '<td style="vertical-align: middle;" data-id="'./*$row['id']*/$value['id'].'">'.($count+1).'</td>';           
                             echo  '<td style="vertical-align: middle;">'.$value['firstName'].'</td>';           
                             echo  '<td style="vertical-align: middle;">'.$value['lastName'].'</td>';           
                             echo  '<td style="vertical-align: middle;">'.$value['value'].' ₾</td>';           
                             echo  '<td style="vertical-align: middle;">'.($value['paid']==1?$doPay[1]:$doPay[0]).'</td>';           
                             echo  '<td style="vertical-align: middle;">'.$value['comment'].'</td>';           
                             ?>
-                            <td style="vertical-align: middle;">
-                            <?php if($value['paid'] == 1): ?>   
-                                <input class="btn btn-default" disabled="" data-toggle="modal" data-target="#changeMyModal" name="change" type="button" value="გადახდილია">
-                            <?php else: ?>
-                                <input class="btn btn-primary" data-toggle="modal" data-target="#changeMyModal" name="change" type="button" value="გადახდა">
-                            <?php endif; ?>
-                            </td>
+                            <input type="hidden" name="value" value="<?php echo $value['value'];?>">
+                            <input type="hidden" name="id" value="<?php echo $value['id'];?>">
+                                    <td style="vertical-align: middle;">
+                                    <?php if($value['paid'] == 1): ?>   
+                                        <input class="btn btn-default" disabled="" name="pay" type="submit" value="გადახდილია">
+                                    <?php else: ?>
+                                        <input class="btn btn-warning" name="pay" type="submit" value="გადახდა">
+                                    <?php endif; ?>
+                                    </td>
+                                  </form>
+                                </tr>
                             <?php
                         endforeach;
                     ?>

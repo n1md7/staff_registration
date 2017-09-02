@@ -5,7 +5,7 @@
     მუშა-პერსონალის აღრიცხვა
   </div>
   <?php Messages::setMsg('მონიშნე ყველა ვინც დღეს არ არის სამუშაო ადგილზე', 'info'); ?>
-  <?php Messages::setMsg('თუ რამე პრობლემა შეიქმნა უნრალოდ გამოლოგინდი და ისევ შედი :D', 'info'); ?>
+  <?php //Messages::setMsg('თუ რამე პრობლემა შეიქმნა უნრალოდ გამოლოგინდი და ისევ შედი :D', 'info'); ?>
   
   <div class="panel-body">
       <form method="post" action="<?php echo ROOT_URL.'staff/staffRegistration'; ?>"  onsubmit="setFormSubmitting()">
@@ -30,6 +30,8 @@
           </thead>
               <tbody>
             <?php
+              $last_updated;
+              $returnComment = false;
               foreach($viewmodel[0] as $key => $row):
              ?>
                 <tr>
@@ -39,6 +41,16 @@
                       <td style="vertical-align: middle;"><?php echo $row['lastName']; ?></td>
                       <td style="vertical-align: middle;">
                         <?php 
+                        $current_time = date_parse(date("d-m-Y"));
+                        if(isset($viewmodel[3])){
+                          $last_updated = date_parse($viewmodel[3]['date_time']);
+                        }
+                        if(isset($last_updated['year']) && $last_updated['year'] == $current_time['year'] &&
+                            $last_updated['month'] == $current_time['month'] &&
+                            $last_updated['day'] == $current_time['day'] ){
+                          $returnComment = true;
+                        }
+                     
                           foreach($viewmodel[2] as $data):
                             if($data['id'] == $row['jobPost']):
                               echo $data['name'];
@@ -49,10 +61,10 @@
                       </td>
 
                       <td style="vertical-align: middle;">
-                        <textarea class="addComentHere <?php if(strlen($row['comment'])>0)echo 'alert-info'; ?> toKa" placeholder="დაამატე კომენტარი..." name="data[array<?php echo $key; ?>][comment]"><?php if(isset($_SESSION['regDone'])){echo $row['comment'];}; ?></textarea>
+                        <textarea class="addComentHere <?php if($returnComment == true && strlen($row['comment'])>0)echo 'alert-info'; ?> toKa" placeholder="დაამატე კომენტარი..." name="data[array<?php echo $key; ?>][comment]"><?php if($returnComment){echo $row['comment'];}; ?></textarea>
                       </td>
                       <td style="vertical-align: middle;"> 
-                          <input  type="checkbox" class="checkItYes" name="data[array<?php echo $key; ?>][yes]"  <?php if(!isset($_SESSION['regDone'])){echo 'checked=""';} ?><?php if(isset($row['isnot_absent']) && $row['isnot_absent']==1){echo 'checked=""';} ?> value="<?php echo $row['id']; ?>">
+                          <input type="checkbox" class="checkItYes" name="data[array<?php echo $key; ?>][yes]"  <?php if(!$returnComment){echo 'checked=""';} ?><?php if(isset($row['isnot_absent']) && $row['isnot_absent']==1){echo 'checked=""';} ?> value="<?php echo $row['id']; ?>">
                       </td>
                       <td style="vertical-align: middle;"> 
                           <input class="checkIt" type="checkbox" name="data[array<?php echo $key; ?>][no]"  <?php if(isset($row['isnot_absent']) && $row['isnot_absent']==0){echo 'checked=""';} ?> value="<?php echo $row['id']; ?>">
@@ -63,7 +75,7 @@
               endforeach;
            ?><tr>
              <td colspan="7">
-              <textarea placeholder="საერთო კომენტარი" class="combinedComment <?php if(strlen($viewmodel[1]['text'])>0)echo 'alert-info'; ?> toKa" name="dailyComment"><?php if(isset($_SESSION['regDone'])){
+              <textarea placeholder="საერთო კომენტარი" class="combinedComment <?php if(strlen($viewmodel[1]['text'])>0)echo 'alert-info'; ?> toKa" name="dailyComment"><?php if($returnComment){
                   echo $viewmodel[1]['text'];}; 
                 ?></textarea>
              </td>
@@ -74,7 +86,7 @@
            ?>
           </tbody>
         </table>
-      <button type="submit" class="btn btn-success btn-lg" style="float: right;" <?php if(isset($_SESSION['regDone'])) echo 'disabled=""'; ?>>აღრიცხვა</button>
+      <button type="submit" class="btn btn-success btn-lg" style="float: right;" <?php if($returnComment) echo 'disabled=""'; ?>>აღრიცხვა</button>
     </form>
   </div>
 </div>
