@@ -73,12 +73,15 @@ class UserModel extends Model{
 
 			$row = $this->single();
 			if($row){
-				$_SESSION['is_admin'] = ($row['is_admin'] == 1) ? true : false;
+				/* 1 admin 2 basic user 3 super admin*/
+				$_SESSION['is_admin'] = ($row['is_admin'] == 1 || ($row['is_admin'] == 3)) ? true : false;
+				$_SESSION['is_super_admin'] = ($row['is_admin'] == 3) ? true : false;
 				$_SESSION['is_logged_in'] = true;
 				$_SESSION['user_data'] = array(
 					"id"	=> $row['id'],
 					"name"	=> $row['name'],
-					"email"	=> $row['email']
+					"email"	=> $row['email'],
+					"lang"	=> $row['lang']
 				);
 				$_SESSION["login_counter"] = 0;
 				header('Location: '.ROOT_URL.'home');
@@ -98,16 +101,28 @@ class UserModel extends Model{
 	public function show(){
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 		if(!empty($post['id'])){
-			if($_SESSION['is_admin'] == false){
+			if($_SESSION['is_admin'] == false && $_SESSION['is_super_admin'] == false){
 				Messages::setMsg('Nothing DELETED... You have no RIGHTS to performe this action', 'error');
-			}else{
+			}elseif($_SESSION['is_admin'] == true && $_SESSION['is_super_admin'] == false) {
 				$this->query('DELETE FROM users WHERE id = :id AND is_admin = 2');
 				$this->bind(':id', $post['id']);
 				$rowCount =  $this->rowCount();
 				if($rowCount == 0){
-					Messages::setMsg('Nothing DELETED', 'error');
+					Messages::setMsg('Nothing DELETED, You cannot delete Admins', 'error');
 				}else{
 					Messages::setMsg('User Successfully DELETED', 'success');
+				}
+			}else{
+				/* 3 is super admin and 2 is basic user 1 is admin
+					admin can delete e
+				*/
+				$this->query('DELETE FROM users WHERE id = :id AND (is_admin = 2 OR is_admin = 1)');
+				$this->bind(':id', $post['id']);
+				$rowCount =  $this->rowCount();
+				if($rowCount == 0){
+					Messages::setMsg('Nothing DELETED, You cannot delete Super Admins', 'error');
+				}else{
+					Messages::setMsg('User Successfully DELETED by Super Admin', 'success');
 				}
 			}
 		}
@@ -115,4 +130,26 @@ class UserModel extends Model{
 		$this->query('SELECT * FROM users');
 		return $this->resultSet();
 	}
+
+
+
+	public function language(){
+		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		if(isset($post['lang'])):
+			$this->query("UPDATE users SET lang = :lang_id WHERE id = :user_id");
+			$this->bind(':lang_id', $post['lang']);
+			$this->bind(':user_id', $_SESSION['user_data']['id']);
+			$this->execute();
+				$_SESSION['user_data']['lang'] = $post['lang'];
+				Messages::setMsg('Language has been changed successfully', '');
+		endif;
+
+		$this->query("SELECT * FROM langs");
+		return $this->resultSet();
+
+	}
+		 
+
+
+
 }

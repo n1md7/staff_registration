@@ -4,14 +4,14 @@
     <h3 class="panel-title">მომხმარებლის რეგისტრაცია</h3>
   </div>
   <div class="panel-body">
-    <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>" onsubmit="setFormSubmitting()">
+    <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>" >
     	<div class="form-group">
     		<label>სახელი</label>
     		<input type="text" name="name" placeholder="Name" class="form-control toKa" autocomplete="off" />
     	</div>
     	<div class="form-group">
     		<label>ელფოსტა</label>
-    		<input type="text" name="email" placeholder="Email" class="form-control toKa" autocomplete="off" />
+    		<input type="text" name="email" placeholder="Email" class="form-control" autocomplete="off" />
     	</div>
     	<div class="form-group">
             <label>პაროლი</label>

@@ -8,7 +8,7 @@
   <?php //Messages::setMsg('თუ რამე პრობლემა შეიქმნა უნრალოდ გამოლოგინდი და ისევ შედი :D', 'info'); ?>
   
   <div class="panel-body">
-      <form method="post" action="<?php echo ROOT_URL.'staff/staffRegistration'; ?>"  onsubmit="setFormSubmitting()">
+      <form method="post" action="<?php echo ROOT_URL.'staff/staffRegistration'; ?>" >
       <input type="hidden" name="register" value="JHKHklhjsdkj">
         <table class="table table-hover table-bordered text-center ">
           <?php  

@@ -78,7 +78,7 @@
          ?>
         <tbody>
           <tr class="<?php //echo $row['active'] == 1?'success':'danger'; ?>">
-            <form method="post" action="<?php echo ROOT_URL.'staff/showOneStaff/'; ?>"  onsubmit="setFormSubmitting()">
+            <form method="post" action="<?php echo ROOT_URL.'staff/showOneStaff/'; ?>"  >
               <div class="form-group">
                 <td style="vertical-align: middle;"><?php echo /*$fname;*/$row['firstName']; ?></td>
                 <td style="vertical-align: middle;"><?php echo /*$lname;*/$row['lastName']; ?></td>

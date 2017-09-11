@@ -4,12 +4,13 @@ ob_start();//amisgamo ar mushaobda ragac heeader problemas migdebda da exa musha
 session_start();
 
 
-/*check session last activity*/
-require('classes/sescontrol.php');
 
 
 // Include Config
 require('config.php');
+/*check session last activity*/
+require('classes/sescontrol.php');
+
 
 require('classes/csrf.php');
 require('classes/calendar.php');
@@ -23,6 +24,8 @@ require('classes/Model.php');
 require('controllers/users.php');
 require('controllers/home.php');
 require('controllers/staff.php');
+
+require('classes/translate.php');
 
 require('models/user.php');
 require('models/home.php');

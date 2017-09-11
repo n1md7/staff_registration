@@ -7,6 +7,7 @@ class Home extends Controller{
 	protected function automation(){
 		if(!isset($_SESSION["is_logged_in"])){
 			header('Location: '.ROOT_URL);
+			return;
 		}
 		$viewmodel = new HomeModel();
 		$this->returnView($viewmodel->automation(), true);

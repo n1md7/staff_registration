@@ -1,4 +1,8 @@
 <?php
+
+$_SESSION['SES_TIME'] = 300; // 5 minutes
+
+
 /*this user should have only to edit or create row for security purpose*/
 // define("DB_HOST", "localhost");
 // define("DB_USER", "sharepost_basic");
@@ -24,6 +28,7 @@ define("ADMIN_DB_HOST", "localhost");
 define("ADMIN_DB_USER", "root");
 define("ADMIN_DB_PASS", "11235813");
 define("ADMIN_DB_NAME", "sharepost");
+
 
 
 date_default_timezone_set("Asia/Tbilisi");

@@ -8,7 +8,7 @@
     <img src="http://keskia.ge/wp-content/uploads/2017/02/cropped-logo.png" width="150" >
   </div>
   <hr>
-    <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>" onsubmit="setFormSubmitting()">
+    <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>" >
     	<div class="form-group">
     		<label>ელფოსტა</label>
         <div class="input-group">

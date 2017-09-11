@@ -31,7 +31,7 @@
               <td><?php echo $row['email']; ?></td>
               <?php endif; ?>
               <td><?php echo $row['reg_date_time']; ?></td>
-              <td><?php echo $row['is_admin'] == 1? "Admin":"Basic User"; ?></td>
+              <td><?php echo $row['is_admin'] == 1? "Admin":($row['is_admin']==2?"Basic User":"Super Admin"); ?></td>
               <td>
                 <?php if($row['email'] != $_SESSION['user_data']['email'] && $_SESSION['is_admin'] == true): ?>
                   <form method="post" action="" >

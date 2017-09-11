@@ -1,8 +1,8 @@
 <script type="text/javascript">$("#home").addClass("activeMenu");</script>
 <div class="text-center">
 	<h1>Welcome</h1>
-	<h3>პროექტის მიზანს წარმოადგენს საქართველოს მინერალური წყლების ამჟამინდელი მდგომარეობის  შესწავლა, რაც დაგვეხმარება განვსაზღვროთ აღნიშნული საკურორტო ადგილების მნიშვნელობა (ლოკალური, შიდა სახელმწიფო თუ საერთაშორისო), გამოყენების სფერო (აბაზანებისა და ბალნეო–პროცედურებისთვის, სასმელად და ასევე ორივესთვის ერთად)  თუ სიმძლავრე, რომელიც მნიშვნელოვან წ</h3>
+	<h3>In this exclusive video series delivered to your inbox over the next 7 days, you will discover how YOU can start earning high ticket commissions from the comfort of your home… Part time with no technical skills, previous experience or personal selling required…</h3>
 	<p class="lead">How are you filling <?php echo "<b>".$_SESSION['user_data']["name"]."</b> "; ?> today?</p>
 	<p class="lead"> 
-ვლილს შეიტანს როგორც შიდა (რაც მნიშვნელოვანია და ხელს შეუწყობს ერის გაჯანსაღებას) ასევე საერთაშორისო სამკურნალო–რეკრიაციული ტურიზმის განვითარების პერსპექტივის განსაზღვრასა და   კრიტერიუმების დადგენაში, რაც თავის მხრივ ინვესტორისთვის (როგორც ადგილობრივი, ასევე უცხოელი)  უფრო ნათელს და მიმზიდველს გახდის საკურორტო–რეკრიაციულ–ტურისტული ბიზნესის ინვესტირებას, ეს კი, ყველაფერთან ერთად ხელს შეუწყობს ქვეყნის სოციალურ–ეკონომიკურ წინსვლასა და განვითარებას, სოფლის გამოცოცხლებას (რამეთუ მინერალური წყლების საბადოების მნიშვნელოვანი ნაწილი მდებარეობს სოფლად ან სოფლებთან ახლოს), აგრარული ბიზნესის და ეკონომიკის სხვადასხვა დარგების განვითარებას, რომელიც თანამდევია</p>
+ a,sdnk asdk;sadk;j alskdj lsjsl;akdj iewofw amdasid  de d ds dsadsadjs akdjskajd lasjd lasjdl asjd </p>
 </div>

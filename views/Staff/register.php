@@ -5,7 +5,7 @@
     <h3 class="panel-title">პერსონალის რეგისტრაცია</h3>
   </div>
   <div class="panel-body">
-    <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>"  onsubmit="setFormSubmitting()">
+    <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>"  >
     	<div class="form-group">
             <label>სახელი *</label><br>
             <input data-toggle="tooltip" required="" data-placement="right" title="First Name" type="text" name="firstName" placeholder="First Name" class="form-control toKa" autocomplete="off" >
